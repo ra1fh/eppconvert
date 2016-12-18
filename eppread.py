@@ -219,5 +219,5 @@ if __name__ == "__main__":
         for v in p.data[0:5]:
             print(v)
     else:
-        print("usage: ergoread <file>")
+        print("usage: eppread <file>")
         sys.exit(1);
