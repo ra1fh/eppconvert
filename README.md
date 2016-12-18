@@ -1,6 +1,6 @@
 # eppconvert
 
-Tools to parse and convert Daum Ergo EPP files.
+Tools to parse and convert Daum Ergo Bike EPP files.
 
 Currently there is only eppread, which reads all epp versions from 1 to 7 and
 dumps the data.  This tool contains a mostly complete specification of the file
