@@ -133,7 +133,7 @@ if __name__ == "__main__":
         if (len(sys.argv) > 2):
             stepsize = float(sys.argv[2])
         else:
-            stepsize = 500.0
+            stepsize = 200.0
         points = read_gpx(sys.argv[1])
         profile = calculate_profile(points, stepsize)
 
