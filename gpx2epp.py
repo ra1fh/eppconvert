@@ -82,7 +82,7 @@ def transform(s, x):
             ele = s.prev.ele + climb
         else:
             ele = (x.ele - s.prev.ele) / 2 + s.prev.ele
-        s.profile.append(Profile(s.target, ele))
+        s.profile.append(Profile(s.raster, ele))
         s.target += s.raster
     s.prev = x
     return s
