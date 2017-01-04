@@ -149,7 +149,7 @@ if __name__ == "__main__":
             print("error: Number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
             print("       Please try to use a higher stepsize than", stepsize, file=sys.stderr)
             sys.exit(1)
-        title = str(os.path.basename(sys.argv[1])) + " (" + str(stepsize) + ")"
+        title = str(os.path.basename(sys.argv[1]))
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
                 "stepsize=" + str(stepsize)
         eppdata = build_epp(profile, stepsize, title, descr)
