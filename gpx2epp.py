@@ -108,13 +108,22 @@ def calculate_profile(points, stepsize):
     return state.profile
 
 def build_epp(profile, stepsize, title, descr):
+    maxheight = reduce(lambda x,y : x if x.ele > y.ele else y, profile).ele
+    if maxheight < 500:
+        graphmax = 500
+    elif maxheight < 1000:
+        graphmax = 1000
+    elif maxheight < 2000:
+        graphmax = 2000
+    else:
+        graphmax = 4000
     header = dict(title=title,
                   description=descr,
                   type='DIST_HEIGHT',
                   third='NONE',
                   length=len(profile),
                   graphmin=0,
-                  graphmax=500,
+                  graphmax=graphmax,
                   stepsize=stepsize,
                   blr=dict(run=1, lyps=1, bike=1),
                   startheight=0,
