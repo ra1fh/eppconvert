@@ -25,7 +25,7 @@ import math
 import sys
 import os
 
-import eppread as epp
+import eppformat as epp
 
 EARTH_RADIUS = 6378137.0
 
@@ -138,8 +138,8 @@ if __name__ == "__main__":
         profile = calculate_profile(points, raster)
 
         title = str(os.path.basename(sys.argv[1])) + " (" + str(raster) + ")"
-        descr = "file=" + str(os.path.basename(sys.argv[1])) + "\r\n" + \
-                "raster=" + str(raster) + "\r\n"
+        descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
+                "raster=" + str(raster)
         eppdata = build_epp(profile, raster, title, descr)
         print(eppdata)
     else:
