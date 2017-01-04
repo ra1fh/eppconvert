@@ -136,7 +136,10 @@ if __name__ == "__main__":
             stepsize = 200.0
         points = read_gpx(sys.argv[1])
         profile = calculate_profile(points, stepsize)
-
+        if len(profile) > 3000:
+            print("error: Number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
+            print("       Please try to use a higher stepsize than", stepsize, file=sys.stderr)
+            sys.exit(1)
         title = str(os.path.basename(sys.argv[1])) + " (" + str(stepsize) + ")"
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
                 "stepsize=" + str(stepsize)
