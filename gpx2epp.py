@@ -143,5 +143,5 @@ if __name__ == "__main__":
         eppdata = build_epp(profile, stepsize, title, descr)
         print(eppdata)
     else:
-        print("usage: gpx2epp <file>")
+        print("usage: gpx2epp <file> [stepsize]")
         sys.exit(1);
