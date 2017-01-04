@@ -6,8 +6,8 @@ python-construct.
 
 ## Requirements
 
- * python-2.7 or python-3.4
- * (python-construct 2.8)[https://pypi.python.org/pypi/construct]
+ * [python](https://www.python.org) 2.7 or 3.4
+ * [python-construct 2.8](https://pypi.python.org/pypi/construct)
 
 ## gpx2epp
 
