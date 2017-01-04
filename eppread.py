@@ -18,6 +18,8 @@
 parse daum ergo bike epp/eup files
 """
 
+from __future__ import print_function
+
 import sys
 import eppformat as epp
 
