@@ -216,8 +216,12 @@ if __name__ == "__main__":
         print("signature =", p.signature)
         print("version =", p.version)
         print(p.header)
-        for v in p.data[0:5]:
+        if (len(sys.argv) > 2):
+            limit=int(sys.argv[2])
+        else:
+            limit=None
+        for v in p.data[:limit]:
             print(v)
     else:
-        print("usage: eppread <file>")
+        print("usage: eppread <file> [limit]")
         sys.exit(1);
