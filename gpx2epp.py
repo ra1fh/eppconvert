@@ -9,6 +9,7 @@ from xml.dom import minidom
 
 import math
 import sys
+import os
 
 import eppread as epp
 
@@ -92,9 +93,9 @@ def calculate_profile(points, raster):
     reduce(transform, points, state)
     return state.profile
 
-def build_epp(profile, raster):
-    header = dict(title='test',
-                  description='test',
+def build_epp(profile, raster, title, descr):
+    header = dict(title=title,
+                  description=descr,
                   type='DIST_HEIGHT',
                   third='NONE',
                   length=len(profile),
@@ -121,7 +122,11 @@ if __name__ == "__main__":
             raster = 500.0
         points = read_gpx(sys.argv[1])
         profile = calculate_profile(points, raster)
-        eppdata = build_epp(profile, raster)
+
+        title = str(os.path.basename(sys.argv[1])) + " (" + str(raster) + ")"
+        descr = "file=" + str(os.path.basename(sys.argv[1])) + "\r\n" + \
+                "raster=" + str(raster) + "\r\n"
+        eppdata = build_epp(profile, raster, title, descr)
         print(eppdata)
     else:
         print("usage: gpx2epp <file>")
