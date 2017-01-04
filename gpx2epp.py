@@ -82,9 +82,9 @@ class State:
     profile = None
     prev = None
     target = None
-    raster = None
-    def __init__(self, raster, profile=[], target=0.0, prev=None):
-        self.raster = raster
+    stepsize = None
+    def __init__(self, stepsize, profile=[], target=0.0, prev=None):
+        self.stepsize = stepsize
         self.profile = profile
         self.prev = prev
         self.target = target
@@ -97,17 +97,17 @@ def transform(s, x):
             ele = s.prev.ele + climb
         else:
             ele = (x.ele - s.prev.ele) / 2 + s.prev.ele
-        s.profile.append(Profile(s.raster, ele))
-        s.target += s.raster
+        s.profile.append(Profile(s.stepsize, ele))
+        s.target += s.stepsize
     s.prev = x
     return s
 
-def calculate_profile(points, raster):
-    state = State(raster=raster)
+def calculate_profile(points, stepsize):
+    state = State(stepsize=stepsize)
     reduce(transform, points, state)
     return state.profile
 
-def build_epp(profile, raster, title, descr):
+def build_epp(profile, stepsize, title, descr):
     header = dict(title=title,
                   description=descr,
                   type='DIST_HEIGHT',
@@ -115,7 +115,7 @@ def build_epp(profile, raster, title, descr):
                   length=len(profile),
                   graphmin=0,
                   graphmax=500,
-                  raster=raster,
+                  stepsize=stepsize,
                   blr=dict(run=1, lyps=1, bike=1),
                   startheight=0,
                   maxwatt=0,
@@ -131,16 +131,16 @@ def build_epp(profile, raster, title, descr):
 if __name__ == "__main__":
     if (len(sys.argv) > 1):
         if (len(sys.argv) > 2):
-            raster = float(sys.argv[2])
+            stepsize = float(sys.argv[2])
         else:
-            raster = 500.0
+            stepsize = 500.0
         points = read_gpx(sys.argv[1])
-        profile = calculate_profile(points, raster)
+        profile = calculate_profile(points, stepsize)
 
-        title = str(os.path.basename(sys.argv[1])) + " (" + str(raster) + ")"
+        title = str(os.path.basename(sys.argv[1])) + " (" + str(stepsize) + ")"
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
-                "raster=" + str(raster)
-        eppdata = build_epp(profile, raster, title, descr)
+                "stepsize=" + str(stepsize)
+        eppdata = build_epp(profile, stepsize, title, descr)
         print(eppdata)
     else:
         print("usage: gpx2epp <file>")

@@ -79,7 +79,7 @@ epp_file = Struct(
                                Padding(2),
                 "length"     / Int32ul,
                 "type"       / epp_type16,
-                "raster"     / Int16ul,
+                "stepsize"   / Int16ul,
                                Padding(4),
             ),
             "data" / Array(this.header.length, Struct(
@@ -93,7 +93,7 @@ epp_file = Struct(
                 "description"/ Padded(0x100, CString()),
                 "length"     / Int32ul,
                 "type"       / epp_type16,
-                "raster"     / Int16ul,
+                "stepsize"   / Int16ul,
                 "maxwatt"    / Int16ul,
                 "maxpulse"   / Int16ul,
                 "startheight"/ Int32ul,
@@ -111,7 +111,7 @@ epp_file = Struct(
                 "graphmax"   / Int32sl,
                 "length"     / Int32ul,
                 "type"       / epp_type16,
-                "raster"     / Int16ul,
+                "stepsize"   / Int16ul,
                 "maxwatt"    / Int16ul,
                 "maxpulse"   / Int16ul,
                 "startheight"/ Int32ul,
@@ -130,7 +130,7 @@ epp_file = Struct(
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
                 "graphmax"   / Int32sl,
-                "raster"     / Int32ul,
+                "stepsize"   / Int32ul,
                 "startheight"/ Int32ul,
                 "maxwatt"    / Int16ul,
                 "maxpulse"   / Int16ul,
@@ -151,7 +151,7 @@ epp_file = Struct(
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
                 "graphmax"   / Int32sl,
-                "raster"     / Int32ul,
+                "stepsize"   / Int32ul,
                 "startheight"/ Int32ul,
                 "maxwatt"    / Int16ul,
                 "maxpulse"   / Int16ul,
@@ -171,7 +171,7 @@ epp_file = Struct(
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
                 "graphmax"   / Int32sl,
-                "raster"     / Int32ul,
+                "stepsize"   / Int32ul,
                 "blr"        / epp_blr,
                 "startheight"/ Int32ul,
                 "maxwatt"    / Int16ul,
@@ -193,7 +193,7 @@ epp_file = Struct(
                 "graphmin"   / Int32sl,    # 0x150
                 "graphmax"   / Int32sl,    # 0x154
                 "length"     / Int32ul,    # 0x158
-                "raster"     / Int32ul,    # 0x15C
+                "stepsize"   / Int32ul,    # 0x15C
                 "blr"        / epp_blr,    # 0x160
                 "startheight"/ Int32ul,    # 0x164
                 "maxwatt"    / Int16ul,    # 0x168
