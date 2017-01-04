@@ -105,28 +105,25 @@ class ProfilePoint:
         self.ele = ele
 
 class ProfileGenerator:
-    def __init__(self, stepsize, profile=[], target=0.0, prev=None):
+    def __init__(self, points, stepsize):
         self.stepsize = stepsize
-        self.profile = profile
-        self.prev = prev
-        self.target = target
+        self.profile = []
+        self.target = 0.0
+        self.prev = None
+        reduce(self.transform, points)
 
-    def transform(self, s, x):
-        while x.total > s.target:
-            if x.total != s.prev.total:
-                section = (s.target - s.prev.total) / (x.total - s.prev.total)
-                climb = section * (x.ele - s.prev.ele)
-                ele = s.prev.ele + climb
+    def transform(self, p1, p2):
+        while p2.total > self.target:
+            if p2.total != p1.total:
+                section = (self.target - p1.total) / (p2.total - p1.total)
+                climb = section * (p2.ele - p1.ele)
+                ele = p1.ele + climb
             else:
-                ele = (x.ele - s.prev.ele) / 2 + s.prev.ele
-            s.profile.append(ProfilePoint(s.stepsize, ele))
-            s.target += s.stepsize
-        s.prev = x
-        return s
+                ele = (p2.ele - p1.ele) / 2 + p1.ele
+            self.profile.append(ProfilePoint(self.stepsize, ele))
+            self.target += self.stepsize
+        return p2
 
-    def calculate_profile(self, points):
-        reduce(self.transform, points, self)
-        return self.profile
 
 def build_epp(profile, stepsize, title, descr):
     maxheight = reduce(lambda x,y : x if x.ele > y.ele else y, profile).ele
@@ -170,7 +167,7 @@ if __name__ == "__main__":
             print("error: too few data points in GPX file:", len(points), file=sys.stderr)
             sys.exit(1)
 
-        profile = ProfileGenerator(stepsize).calculate_profile(points)
+        profile = ProfileGenerator(points, stepsize).profile
         if len(profile) > 3000:
             print("error: Number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
             print("       Please try to use a higher stepsize than", stepsize, file=sys.stderr)
