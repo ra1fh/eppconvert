@@ -67,10 +67,35 @@ def read_gpx(filename):
         trkpts = trk.getElementsByTagName('trkpt')
         prev = None
         for trkpt in trkpts:
-            p = Point(float(trkpt.getAttribute('lat')),
-                      float(trkpt.getAttribute('lon')),
-                      float(trkpt.getElementsByTagName('ele')[0].firstChild.nodeValue),
-                      0.0, 0.0)
+            ele = trkpt.getElementsByTagName('ele')
+            if not ele or len(ele) < 1 or ele[0].firstChild == None:
+                print('error: GPX track point has no elevation data (#',
+                      len(pts), ')', file=sys.stderr, sep='')
+                sys.exit(1)
+
+            try:
+                ele = float(ele[0].firstChild.nodeValue)
+            except ValueError:
+                print('error: GPX track point contains invalid elevation data (#',
+                      len(pts), '): ', ele[0].firstChild.nodeValue,
+                      file=sys.stderr, sep='')
+                sys.exit(1)
+
+            try:
+                lat = float(trkpt.getAttribute('lat'))
+            except ValueError:
+                print('error: GPX track point contains invalid latitude data (#',
+                      len(pts), '): ', trkpt.getAttribute('lat'), file=sys.stderr, sep='')
+                sys.exit(1)
+
+            try:
+                lon = float(trkpt.getAttribute('lon'))
+            except ValueError:
+                print('error: GPX track point contains invalid longitude data (#',
+                      len(pts), '): ', trkpt.getAttribute('lon'), file=sys.stderr, sep='')
+                sys.exit(1)
+
+            p = Point(lat, lon, ele, 0.0, 0.0)
             if prev:
                 p.dist = great_circle_distance(prev, p)
                 p.total = prev.total + p.dist
@@ -143,12 +168,21 @@ if __name__ == "__main__":
             stepsize = float(sys.argv[2])
         else:
             stepsize = 200.0
+
         points = read_gpx(sys.argv[1])
+        if len(points) < 2:
+            print("error: too few data points in GPX file:", len(points), file=sys.stderr)
+            sys.exit(1)
+
         profile = calculate_profile(points, stepsize)
         if len(profile) > 3000:
             print("error: Number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
             print("       Please try to use a higher stepsize than", stepsize, file=sys.stderr)
             sys.exit(1)
+        if len(profile) < 2:
+            print("error: too few data points after conversion:", len(profile), file=sys.stderr)
+            sys.exit(1)
+
         title = str(os.path.basename(sys.argv[1]))
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
                 "stepsize=" + str(stepsize)
