@@ -75,21 +75,15 @@ class State:
         self.target = target
 
 def transform(s, x):
-    if len(s.profile) == 0:
+    while x.total > s.target:
+        if x.total != s.prev.total:
+            section = (s.target - s.prev.total) / (x.total - s.prev.total)
+            climb = section * (x.ele - s.prev.ele)
+            ele = s.prev.ele + climb
+        else:
+            ele = (x.ele - s.prev.ele) / 2 + s.prev.ele
+        s.profile.append(Profile(s.target, ele))
         s.target += s.raster
-        s.profile.append(Profile(0.0, x.ele))
-    elif x.total < s.target:
-        next
-    else:
-        while s.target < x.total:
-            if x.total != s.prev.total:
-                section = (s.target - s.prev.total) / (x.total - s.prev.total)
-                climb = section * (x.ele - s.prev.ele)
-                ele = s.prev.ele + climb
-            else:
-                ele = (x.ele - s.prev.ele) / 2 + s.prev.ele
-            s.profile.append(Profile(s.target, ele))
-            s.target += s.raster
     s.prev = x
     return s
 
