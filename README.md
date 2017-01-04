@@ -15,10 +15,10 @@ Reads gpx file and writes epp version 7 file to stdout. Example usage:
 
 	gpx2epp.py track.gpx 200 > track.epp
 
-The optional second parameter determines the stepsize the hight
-profile uses in meters. The ergo bike can cope with arbitrary
-stepsizes, but only files with a stepsize of 200 can be modified in
-the bike UI editor.
+The optional second parameter determines the stepsize in meters the
+epp file uses. The ergo bike can cope with arbitrary stepsizes, but
+only files with a stepsize of 200 can be modified in the bike UI
+editor.
 
 Only the first track of the GPX is converted, including all track
 segments.
@@ -26,7 +26,7 @@ segments.
 ## eppread
 
 Reads an epp file and prints a textual representation to
-stdout. Usefule for debugging. Example usage:
+stdout. Can be useful for debugging. Example usage:
 
 	eppread.py track.epp 5
 
