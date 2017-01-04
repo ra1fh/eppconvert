@@ -63,30 +63,42 @@ def read_gpx(filename):
             prev = p
     return pts
 
-def calculate_profile(points, delta):
-    profile = []
-    target = 0.0
-    i1 = 0
-    i2 = 0
-    while i2 < len(points) - 1:
-        target = target + delta
-        while i2 < len(points) - 1 and points[i2].total < target:
-            i1 = i2
-            i2 += 1
-        pred = points[i1]
-        succ = points[i2]
-        if succ.total < target:
-            break
-        elif i1 == i2:
-            profile.append(Profile(pred.total, pred.ele))
-        else:
-            part = (target - pred.total) / (succ.total - pred.total)
-            climb = part * (succ.ele - pred.ele)
-            ele = pred.ele + climb
-            profile.append(Profile(target, ele))
-    return profile
+class State:
+    profile = None
+    prev = None
+    target = None
+    raster = None
+    def __init__(self, raster, profile=[], target=0.0, prev=None):
+        self.raster = raster
+        self.profile = profile
+        self.prev = prev
+        self.target = target
 
-def build_epp(profile):
+def transform(s, x):
+    if len(s.profile) == 0:
+        s.target += s.raster
+        s.profile.append(Profile(0.0, x.ele))
+    elif x.total < s.target:
+        next
+    else:
+        while s.target < x.total:
+            if x.total != s.prev.total:
+                section = (s.target - s.prev.total) / (x.total - s.prev.total)
+                climb = section * (x.ele - s.prev.ele)
+                ele = s.prev.ele + climb
+            else:
+                ele = (x.ele - s.prev.ele) / 2 + s.prev.ele
+            s.profile.append(Profile(s.target, ele))
+            s.target += s.raster
+    s.prev = x
+    return s
+
+def calculate_profile(points, raster):
+    state = State(raster=raster)
+    reduce(transform, points, state)
+    return state.profile
+
+def build_epp(profile, raster):
     header = dict(title='test',
                   description='test',
                   type='DIST_HEIGHT',
@@ -94,7 +106,7 @@ def build_epp(profile):
                   length=len(profile),
                   graphmin=0,
                   graphmax=500,
-                  raster=100,
+                  raster=raster,
                   blr=dict(run=1, lyps=1, bike=1),
                   startheight=0,
                   maxwatt=0,
@@ -109,9 +121,10 @@ def build_epp(profile):
 
 if __name__ == "__main__":
     if (len(sys.argv) > 1):
+        raster = 500.0
         points = read_gpx(sys.argv[1])
-        profile = calculate_profile(points, 500.0)
-        eppdata = build_epp(profile)
+        profile = calculate_profile(points, raster)
+        eppdata = build_epp(profile, raster)
         print(eppdata)
     else:
         print("usage: gpx2epp <file>")
