@@ -20,12 +20,6 @@ daum ergo bike epp/eup format definition
 
 from construct import *
 
-class StringAdapter(Adapter):
-    def _encode(self, obj, context):
-        return obj
-    def _decode(self, obj, context):
-        return obj.decode("cp1252")
-
 class FloatAdapter(Adapter):
     def _encode(self, obj, context):
         return obj
@@ -81,13 +75,13 @@ epp_blr = BitStruct(
 )
 
 epp_file = Struct(
-    "signature"  / StringAdapter(Const(b"EW2_EUP ")),
+    "signature"  / Const(b"EW2_EUP "),
     "version"    / epp_version, Embedded(Switch(this.version, {
         "VERSION_1" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x32,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x32,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                                Padding(2),
                 "length"     / Int32ul,
                 "type"       / epp_type16,
@@ -101,8 +95,8 @@ epp_file = Struct(
         "VERSION_2" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x32,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x32,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                 "length"     / Int32ul,
                 "type"       / epp_type16,
                 "stepsize"   / Int16ul,
@@ -117,8 +111,8 @@ epp_file = Struct(
         "VERSION_3" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x32,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x32,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                 "graphmin"   / Int32sl,
                 "graphmax"   / Int32sl,
                 "length"     / Int32ul,
@@ -136,8 +130,8 @@ epp_file = Struct(
         "VERSION_4" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x40,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                 "type"       / epp_type32,
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
@@ -157,8 +151,8 @@ epp_file = Struct(
         "VERSION_5" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x40,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                 "type"       / epp_type32,
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
@@ -177,8 +171,8 @@ epp_file = Struct(
         "VERSION_6" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x40,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                 "type"       / epp_type32,
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
@@ -198,8 +192,8 @@ epp_file = Struct(
         "VERSION_7" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  StringAdapter(CString())),
-                "description"/ Padded(0x100, StringAdapter(CString())),
+                "title"      / Padded(0x40,  CString(encoding="cp1252")),
+                "description"/ Padded(0x100, CString(encoding="cp1252")),
                 "type"       / epp_type32,
                 "third"      / epp_third,
                 "graphmin"   / Int32sl,
