@@ -80,11 +80,8 @@ class GpxReader:
 
                 p = GpxPoint(lat, lon, ele, 0.0, 0.0)
                 self.points.append(p)
-        if len(self.points) < 2:
-            print('error: GPX track contains too few data points:',
-                  len(self.points), file=sys.stderr)
-            sys.exit(1)
-        functools.reduce(self.reducefunction, self.points)
+        if len(self.points) > 1:
+            functools.reduce(self.reducefunction, self.points)
 
     def reducefunction(self, p1, p2):
         p2.dist = self.great_circle_distance(p1, p2)
@@ -174,17 +171,17 @@ if __name__ == "__main__":
 
         gpx = GpxReader(sys.argv[1])
         points = gpx.points
-        if len(points) < 2:
-            print("error: too few data points in GPX file:", len(points), file=sys.stderr)
+        if len(points) < 1:
+            print("error: no track points in GPX file.", file=sys.stderr)
             sys.exit(1)
 
         profile = ProfileGenerator(points, stepsize).profile
         if len(profile) > 3000:
-            print("error: Number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
+            print("error: number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
             print("       Please try to use a higher stepsize than", stepsize, file=sys.stderr)
             sys.exit(1)
-        if len(profile) < 2:
-            print("error: too few data points after conversion:", len(profile), file=sys.stderr)
+        if len(profile) < 1:
+            print("error: no epp data points after conversion.", file=sys.stderr)
             sys.exit(1)
 
         if gpx.name:

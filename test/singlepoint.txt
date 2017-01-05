@@ -1,0 +1,23 @@
+signature = EW2_EUP 
+version = VERSION_7
+Container: 
+    title = singlepoint
+    description = file=singlepoint.gpx, stepsize=200
+    type = DIST_HEIGHT
+    third = NONE
+    graphmin = 0
+    graphmax = 500
+    length = 1
+    stepsize = 200
+    blr = Container: 
+        run = True
+        lyps = True
+        bike = True
+    startheight = 0
+    maxwatt = 0
+    maxpulse = 0
+    maxspeed = 0.0
+Container: 
+    val1 = 200
+    val2 = 199.0
+    val3 = 0.0
