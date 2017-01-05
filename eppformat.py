@@ -24,7 +24,7 @@ class StringAdapter(Adapter):
     def _encode(self, obj, context):
         return obj
     def _decode(self, obj, context):
-        return obj.decode("latin-1")
+        return obj.decode("cp1252")
 
 class FloatAdapter(Adapter):
     def _encode(self, obj, context):
