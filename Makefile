@@ -1,6 +1,6 @@
 
 PYTHON = python2.7
-TESTS  = test/koeterberg test/codepage test/singlepoint
+TESTS  = test/koeterberg test/codepage test/singlepoint test/overflow
 
 check:
 	@for test in $(TESTS); do \

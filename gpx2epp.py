@@ -188,8 +188,10 @@ if __name__ == "__main__":
             title = gpx.name
         else:
             title = str(os.path.basename(sys.argv[1]))
-        descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
-                "stepsize=" + str(stepsize)
+        descr = "file=" + str(os.path.basename(sys.argv[1])) + \
+                ", stepsize=" + str(stepsize)
+        title = title[0:49]
+        descr = descr[0:255]
         eppdata = EppBuilder(profile, stepsize, title, descr).eppdata
         with os.fdopen(sys.stdout.fileno(), 'wb') as f:
             f.write(eppdata)

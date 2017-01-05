@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<gpx version="1.0" creator="Viking -- http://viking.sf.net/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www.topografix.com/GPX/1/0"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+<trk>
+  <name>0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789</name>
+  <trkseg>
+  <trkpt lat="51.854918390924951" lon="9.2399135464658197">
+    <ele>199</ele>
+  </trkpt>
+  <trkpt lat="51.855236472253146" lon="9.2408576840390619">
+    <ele>199</ele>
+  </trkpt>
+  </trkseg>
+</trk>
+</gpx>
