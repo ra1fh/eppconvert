@@ -24,6 +24,9 @@ import sys
 import eppformat as epp
 
 if __name__ == "__main__":
+    if (sys.version_info < (3,0)):
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
     if (len(sys.argv) > 1):
         p = epp.epp_file.parse_stream(open(sys.argv[1], "rb"))
         print("signature =", p.signature.decode('ascii'))
