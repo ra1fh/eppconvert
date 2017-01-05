@@ -20,6 +20,18 @@ daum ergo bike epp/eup format definition
 
 from construct import *
 
+class StringAdapter(Adapter):
+    def _encode(self, obj, context):
+        return obj
+    def _decode(self, obj, context):
+        return obj.decode("latin-1")
+
+class FloatAdapter(Adapter):
+    def _encode(self, obj, context):
+        return obj
+    def _decode(self, obj, context):
+        return round(obj, 2)
+
 epp_version = Enum(Int32ul,
     VERSION_1 = 1,
     VERSION_2 = 2,
@@ -69,13 +81,13 @@ epp_blr = BitStruct(
 )
 
 epp_file = Struct(
-    "signature"  / Const(b"EW2_EUP "),
+    "signature"  / StringAdapter(Const(b"EW2_EUP ")),
     "version"    / epp_version, Embedded(Switch(this.version, {
         "VERSION_1" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x32,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x32,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                                Padding(2),
                 "length"     / Int32ul,
                 "type"       / epp_type16,
@@ -89,8 +101,8 @@ epp_file = Struct(
         "VERSION_2" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x32,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x32,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                 "length"     / Int32ul,
                 "type"       / epp_type16,
                 "stepsize"   / Int16ul,
@@ -105,8 +117,8 @@ epp_file = Struct(
         "VERSION_3" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x32,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x32,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                 "graphmin"   / Int32sl,
                 "graphmax"   / Int32sl,
                 "length"     / Int32ul,
@@ -124,8 +136,8 @@ epp_file = Struct(
         "VERSION_4" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x40,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                 "type"       / epp_type32,
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
@@ -139,14 +151,14 @@ epp_file = Struct(
             "data" / Array(this.header.length, Struct(
                 "val1"       / Int32ul,
                                Int32ul,
-                "val2"       / Float64l,
+                "val2"       / FloatAdapter(Float64l),
             )),
         ),
         "VERSION_5" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x40,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                 "type"       / epp_type32,
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
@@ -159,14 +171,14 @@ epp_file = Struct(
             ),
             "data" / Array(this.header.length, Struct(
                 "val1"       / Int32ul,
-                "val2"       / Float32l,
+                "val2"       / FloatAdapter(Float32l),
             )),
         ),
         "VERSION_6" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x40,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                 "type"       / epp_type32,
                 "length"     / Int32ul,
                 "graphmin"   / Int32sl,
@@ -180,14 +192,14 @@ epp_file = Struct(
             ),
             "data" / Array(this.header.length, Struct(
                 "val1"   / Int32ul,
-                "val2"   / Float32l,
+                "val2"   / FloatAdapter(Float32l),
             )),
         ),
         "VERSION_7" : Struct(
             "header" / Struct(
                                Padding(8),
-                "title"      / Padded(0x40,  CString()),
-                "description"/ Padded(0x100, CString()),
+                "title"      / Padded(0x40,  StringAdapter(CString())),
+                "description"/ Padded(0x100, StringAdapter(CString())),
                 "type"       / epp_type32,
                 "third"      / epp_third,
                 "graphmin"   / Int32sl,
@@ -198,13 +210,13 @@ epp_file = Struct(
                 "startheight"/ Int32ul,
                 "maxwatt"    / Int16ul,
                 "maxpulse"   / Int16ul,
-                "maxspeed"   / Float32l,
+                "maxspeed"   / FloatAdapter(Float32l),
                                Padding(8),
             ),
             "data" / Array(this.header.length, Struct(
                 "val1"       / Int32ul,
-                "val2"       / Float32l,
-                "val3"       / Float32l,
+                "val2"       / FloatAdapter(Float32l),
+                "val3"       / FloatAdapter(Float32l),
             )),
         ),
     })),
