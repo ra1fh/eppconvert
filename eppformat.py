@@ -185,8 +185,8 @@ epp_file = Struct(
                                Padding(8),
             ),
             "data" / Array(this.header.length, Struct(
-                "val1"   / Int32ul,
-                "val2"   / FloatAdapter(Float32l),
+                "val1"       / Int32ul,
+                "val2"       / FloatAdapter(Float32l),
             )),
         ),
         "VERSION_7" : Struct(
