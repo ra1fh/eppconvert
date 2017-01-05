@@ -40,9 +40,14 @@ class GpxPoint:
 
 class GpxReader:
     def __init__(self, filename):
+        self.name = None
+
         xml = minidom.parse(filename)
         self.points = []
         for trk in xml.getElementsByTagName('trk')[0:1]:
+            name = trk.getElementsByTagName('name')
+            if name and len(name) > 0 and name[0].firstChild != None:
+                self.name = name[0].firstChild.nodeValue
             trkpts = trk.getElementsByTagName('trkpt')
             for trkpt in trkpts:
                 ele = trkpt.getElementsByTagName('ele')
@@ -167,7 +172,8 @@ if __name__ == "__main__":
         else:
             stepsize = 200
 
-        points = GpxReader(sys.argv[1]).points
+        gpx = GpxReader(sys.argv[1])
+        points = gpx.points
         if len(points) < 2:
             print("error: too few data points in GPX file:", len(points), file=sys.stderr)
             sys.exit(1)
@@ -181,7 +187,10 @@ if __name__ == "__main__":
             print("error: too few data points after conversion:", len(profile), file=sys.stderr)
             sys.exit(1)
 
-        title = str(os.path.basename(sys.argv[1]))
+        if gpx.name:
+            title = gpx.name
+        else:
+            title = str(os.path.basename(sys.argv[1]))
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
                 "stepsize=" + str(stepsize)
         eppdata = EppBuilder(profile, stepsize, title, descr).eppdata

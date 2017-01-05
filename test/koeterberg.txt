@@ -1,7 +1,7 @@
 signature = EW2_EUP 
 version = VERSION_7
 Container: 
-    title = koeterberg.gpx
+    title = koeterberg
     description = file=koeterberg.gpx, stepsize=200
     type = DIST_HEIGHT
     third = NONE
