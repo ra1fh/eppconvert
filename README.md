@@ -6,14 +6,17 @@ python-construct.
 
 ## Requirements
 
- * [python](https://www.python.org) 2.7
- * [python-construct](https://pypi.python.org/pypi/construct) 2.8
-   The distribution-provided version will likely be too old, so install
-   the latest version with: `pip install construct`
+  * [python](https://www.python.org) 2.7
+
+  * [python-construct](https://pypi.python.org/pypi/construct) 2.8.
+
+    The distribution-provided version will likely be too old, so install
+    the latest version with: `pip install construct`
 
 ## gpx2epp
 
-Reads gpx file and writes epp version 7 file to stdout. Example usage:
+gpx2epp reads the gpx file and writes epp version 7 file to
+stdout. Example usage:
 
 	./gpx2epp.py track.gpx 200 > track.epp
 
@@ -27,7 +30,7 @@ segments.
 
 ## eppread
 
-Reads an epp file and prints a textual representation to
+eppread reads an epp file and prints a textual representation to
 stdout. Can be useful for debugging. Example usage:
 
 	./eppread.py track.epp 5
