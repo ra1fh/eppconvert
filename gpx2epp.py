@@ -21,9 +21,10 @@ convert gpx to epp dist/height profile
 from __future__ import print_function
 from xml.dom import minidom
 
+import functools
 import math
-import sys
 import os
+import sys
 
 import eppformat as epp
 
@@ -78,7 +79,7 @@ class GpxReader:
             print('error: GPX track contains too few data points:',
                   len(self.points), file=sys.stderr)
             sys.exit(1)
-        reduce(self.reducefunction, self.points)
+        functools.reduce(self.reducefunction, self.points)
 
     def reducefunction(self, p1, p2):
         p2.dist = self.great_circle_distance(p1, p2)
@@ -107,7 +108,7 @@ class ProfileGenerator:
         self.profile = []
         self.target = 0.0
         self.prev = None
-        reduce(self.transform, points)
+        functools.reduce(self.transform, points)
 
     def transform(self, p1, p2):
         while p2.total > self.target:
@@ -123,8 +124,8 @@ class ProfileGenerator:
 
 class EppBuilder:
     def __init__(self, profile, stepsize, title, descr):
-        header = dict(title=title,
-                      description=descr,
+        header = dict(title=title.encode("latin-1"),
+                      description=descr.encode("latin-1"),
                       type='DIST_HEIGHT',
                       third='NONE',
                       length=len(profile),
@@ -136,14 +137,14 @@ class EppBuilder:
                       maxwatt=0,
                       maxpulse=0,
                       maxspeed=0)
-        data = map(lambda x : dict(val1=int(x.dist), val2=x.ele, val3=0), profile)
+        data = list(map(lambda x : dict(val1=int(x.dist), val2=x.ele, val3=0), profile))
         eppinfo = dict(version='VERSION_7',
                        header=header,
                        data=data)
         self.eppdata = epp.epp_file.build(eppinfo)
 
     def graphmax(self, profile):
-        m = reduce(self.max, profile).ele
+        m = functools.reduce(self.max, profile).ele
         if m < 500:
             return 500
         elif m < 1000:
