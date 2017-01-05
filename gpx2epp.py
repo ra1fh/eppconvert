@@ -121,35 +121,43 @@ class ProfileGenerator:
             self.target += self.stepsize
         return p2
 
-def build_epp(profile, stepsize, title, descr):
-    maxheight = reduce(lambda x,y : x if x.ele > y.ele else y, profile).ele
-    if maxheight < 500:
-        graphmax = 500
-    elif maxheight < 1000:
-        graphmax = 1000
-    elif maxheight < 2000:
-        graphmax = 2000
-    else:
-        graphmax = 4000
-    header = dict(title=title,
-                  description=descr,
-                  type='DIST_HEIGHT',
-                  third='NONE',
-                  length=len(profile),
-                  graphmin=0,
-                  graphmax=graphmax,
-                  stepsize=stepsize,
-                  blr=dict(run=1, lyps=1, bike=1),
-                  startheight=0,
-                  maxwatt=0,
-                  maxpulse=0,
-                  maxspeed=0)
-    data = map(lambda x : dict(val1=int(x.dist), val2=x.ele, val3=0), profile)
-    eppinfo = dict(version='VERSION_7',
-                   header=header,
-                   data=data)
-    eppdata = epp.epp_file.build(eppinfo)
-    return eppdata
+class EppBuilder:
+    def __init__(self, profile, stepsize, title, descr):
+        header = dict(title=title,
+                      description=descr,
+                      type='DIST_HEIGHT',
+                      third='NONE',
+                      length=len(profile),
+                      graphmin=0,
+                      graphmax=self.graphmax(profile),
+                      stepsize=stepsize,
+                      blr=dict(run=1, lyps=1, bike=1),
+                      startheight=0,
+                      maxwatt=0,
+                      maxpulse=0,
+                      maxspeed=0)
+        data = map(lambda x : dict(val1=int(x.dist), val2=x.ele, val3=0), profile)
+        eppinfo = dict(version='VERSION_7',
+                       header=header,
+                       data=data)
+        self.eppdata = epp.epp_file.build(eppinfo)
+
+    def graphmax(self, profile):
+        m = reduce(self.max, profile).ele
+        if m < 500:
+            return 500
+        elif m < 1000:
+            return 1000
+        elif m < 2000:
+            return 2000
+        else:
+            return 4000
+
+    def max(self, x, y):
+        if x.ele > y.ele:
+            return x
+        else:
+            return y
 
 if __name__ == "__main__":
     if (len(sys.argv) > 1):
@@ -175,7 +183,7 @@ if __name__ == "__main__":
         title = str(os.path.basename(sys.argv[1]))
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
                 "stepsize=" + str(stepsize)
-        eppdata = build_epp(profile, stepsize, title, descr)
+        eppdata = EppBuilder(profile, stepsize, title, descr).eppdata
         print(eppdata)
     else:
         print("usage: gpx2epp <file> [stepsize]")
