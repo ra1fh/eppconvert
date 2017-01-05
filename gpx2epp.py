@@ -90,14 +90,11 @@ class GpxReader:
     def great_circle_distance(self, p1, p2):
         sdlat = math.sin((p1.lat - p2.lat) * math.pi / 180.0) / 2.0
         sdlon = math.sin((p1.lon - p2.lon) * math.pi / 180.0) / 2.0
-        central_angle = 2.0 * math.asin(math.sqrt(sdlat * sdlat
-                                                  + math.cos(p1.lat * math.pi / 180.0)
-                                                  * math.cos(p2.lat * math.pi / 180.0)
-                                                  * sdlon * sdlon))
+        squared = math.cos(p1.lat * math.pi / 180.0) * \
+                  math.cos(p2.lat * math.pi / 180.0) * \
+                  sdlon**2 + sdlat**2
+        central_angle = 2.0 * math.asin(math.sqrt(squared))
         return central_angle * EARTH_RADIUS
-
-    def points(self):
-        return self.points
 
 class ProfilePoint:
     def __init__(self, dist=None, ele=None):
@@ -123,7 +120,6 @@ class ProfileGenerator:
             self.profile.append(ProfilePoint(self.stepsize, ele))
             self.target += self.stepsize
         return p2
-
 
 def build_epp(profile, stepsize, title, descr):
     maxheight = reduce(lambda x,y : x if x.ele > y.ele else y, profile).ele
