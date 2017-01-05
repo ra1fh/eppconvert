@@ -9,7 +9,7 @@ python:
   - "3.4"
 
 install:
-  - pip install --user construct
+  - pip install construct
 
 script:
   - make check

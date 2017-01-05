@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ra1fh/eppconvert.svg?branch=master)](https://travis-ci.org/ra1fh/eppconvert)
+
 # eppconvert
 
 Tools to parse and convert Daum Ergo Bike EPP files. This contains a
