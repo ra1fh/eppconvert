@@ -162,9 +162,9 @@ class EppBuilder:
 if __name__ == "__main__":
     if (len(sys.argv) > 1):
         if (len(sys.argv) > 2):
-            stepsize = float(sys.argv[2])
+            stepsize = int(sys.argv[2])
         else:
-            stepsize = 200.0
+            stepsize = 200
 
         points = GpxReader(sys.argv[1]).points
         if len(points) < 2:
