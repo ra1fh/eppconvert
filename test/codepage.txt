@@ -2,12 +2,12 @@ signature = EW2_EUP
 version = VERSION_7
 Container: 
     title = <- umlauts:'äöüÄÖÜß', special:'@€µ²³{[]}()/|\' ->
-    description = <- umlauts:'äöüÄÖÜß', special:'@€µ²³{[]}()/|\' ->
+    description = file=codepage.gpx, stepsize=200
     type = DIST_HEIGHT
     third = NONE
     graphmin = 0
-    graphmax = 400
-    length = 5
+    graphmax = 500
+    length = 2
     stepsize = 200
     blr = Container: 
         run = True
@@ -19,21 +19,9 @@ Container:
     maxspeed = 0.0
 Container: 
     val1 = 200
-    val2 = 260.0
+    val2 = 199.0
     val3 = 0.0
 Container: 
     val1 = 200
-    val2 = 270.0
-    val3 = 0.0
-Container: 
-    val1 = 200
-    val2 = 280.0
-    val3 = 0.0
-Container: 
-    val1 = 200
-    val2 = 290.0
-    val3 = 0.0
-Container: 
-    val1 = 200
-    val2 = 300.3
+    val2 = 199.73
     val3 = 0.0

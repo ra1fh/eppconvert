@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<gpx version="1.0" creator="Viking -- http://viking.sf.net/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www.topografix.com/GPX/1/0"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+<trk>
+  <name>&lt;- umlauts:'äöüÄÖÜß', special:'@€µ²³{[]}()/|\' -&gt;</name>
+  <trkseg>
+  <trkpt lat="51.854918390924951" lon="9.2399135464658197">
+    <ele>199</ele>
+  </trkpt>
+  <trkpt lat="51.855236472253146" lon="9.2408576840390619">
+    <ele>199</ele>
+  </trkpt>
+  <trkpt lat="51.855766602803619" lon="9.2413726681699213">
+    <ele>199</ele>
+  </trkpt>
+  <trkpt lat="51.856137690472806" lon="9.2435613507260737">
+    <ele>201</ele>
+  </trkpt>
+  <trkpt lat="51.856800339413084" lon="9.2444625729550776">
+    <ele>197</ele>
+  </trkpt>
+  </trkseg>
+</trk>
+</gpx>
