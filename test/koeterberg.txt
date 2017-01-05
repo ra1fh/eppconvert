@@ -1,0 +1,287 @@
+signature = EW2_EUP 
+version = VERSION_7
+Container: 
+    title = koeterberg.gpx
+    description = file=koeterberg.gpx, stepsize=200
+    type = DIST_HEIGHT
+    third = NONE
+    graphmin = 0
+    graphmax = 500
+    length = 67
+    stepsize = 200
+    blr = Container: 
+        run = True
+        lyps = True
+        bike = True
+    startheight = 0
+    maxwatt = 0
+    maxpulse = 0
+    maxspeed = 0.0
+Container: 
+    val1 = 200
+    val2 = 199.0
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 199.733520508
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 197.215744019
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 205.252197266
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 207.709197998
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 213.229904175
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 218.199539185
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 221.982391357
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 225.76524353
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 229.548095703
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 232.332199097
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 233.276397705
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 237.829925537
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 255.46572876
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 260.349761963
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 263.132843018
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 263.250610352
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 259.377838135
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 251.414993286
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 242.359390259
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 245.29006958
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 250.962936401
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 253.74899292
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 257.820343018
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 262.731994629
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 267.725708008
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 272.396972656
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 281.914733887
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 297.611785889
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 313.308868408
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 337.476135254
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 356.047058105
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 368.206115723
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 376.946533203
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 384.91229248
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 398.694519043
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 421.541992188
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 443.693023682
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 452.916137695
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 473.551818848
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 487.179656982
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 472.230072021
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 455.371551514
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 441.96383667
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 415.920227051
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 392.892303467
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 381.802490234
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 375.74041748
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 364.978210449
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 351.505523682
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 329.717041016
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 305.983581543
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 286.378936768
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 276.528320312
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 278.472290039
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 284.105712891
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 288.509887695
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 288.562591553
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 295.42477417
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 301.188751221
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 299.68170166
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 301.304260254
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 305.799835205
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 302.409210205
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 297.514465332
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 305.441345215
+    val3 = 0.0
+Container: 
+    val1 = 200
+    val2 = 303.807281494
+    val3 = 0.0
