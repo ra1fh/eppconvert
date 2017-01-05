@@ -129,8 +129,8 @@ class ProfileGenerator:
 
 class EppBuilder:
     def __init__(self, profile, stepsize, title, descr):
-        header = dict(title=title.encode("latin-1"),
-                      description=descr.encode("latin-1"),
+        header = dict(title=title,
+                      description=descr,
                       type='DIST_HEIGHT',
                       third='NONE',
                       length=len(profile),
