@@ -6,12 +6,13 @@ python-construct.
 
 ## Requirements
 
-  * [python](https://www.python.org) 2.7
+  * [python](https://www.python.org) 2.7, 3.5, or 3.6
 
   * [python-construct](https://pypi.python.org/pypi/construct) 2.8
 
-    The distribution-provided version will likely be too old, so install
-    the latest version with: `pip install construct`
+    The distribution-provided version of python-construct will likely
+    be too old, so install the latest version with: `pip install
+    construct`
 
 ## gpx2epp
 

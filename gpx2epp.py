@@ -185,7 +185,8 @@ if __name__ == "__main__":
         descr = "file=" + str(os.path.basename(sys.argv[1])) + ", " + \
                 "stepsize=" + str(stepsize)
         eppdata = EppBuilder(profile, stepsize, title, descr).eppdata
-        print(eppdata)
+        with os.fdopen(sys.stdout.fileno(), 'wb') as f:
+            f.write(eppdata)
     else:
         print("usage: gpx2epp <file> [stepsize]")
         sys.exit(1);
