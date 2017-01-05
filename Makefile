@@ -1,25 +1,20 @@
 
-PYTHON=python2.7
-TESTDATA=test/koeterberg
-CODEPAGE=test/codepage
+PYTHON = python2.7
+TESTS  = test/koeterberg test/codepage
 
 check:
-	$(PYTHON) gpx2epp.py $(TESTDATA).gpx      > $(TESTDATA).test.epp
-	hexdump -C           $(TESTDATA).test.epp > $(TESTDATA).test.hex
-	diff -u              $(TESTDATA).hex        $(TESTDATA).test.hex
-	$(PYTHON) eppread.py $(TESTDATA).test.epp > $(TESTDATA).test.txt
-	diff -u              $(TESTDATA).txt        $(TESTDATA).test.txt
-	$(PYTHON) gpx2epp.py $(CODEPAGE).gpx      > $(CODEPAGE).test.epp
-	hexdump -C           $(CODEPAGE).test.epp > $(CODEPAGE).test.hex
-	diff -u              $(CODEPAGE).hex        $(CODEPAGE).test.hex
-	$(PYTHON) eppread.py $(CODEPAGE).test.epp > $(CODEPAGE).test.txt
-	diff -u              $(CODEPAGE).txt        $(CODEPAGE).test.txt
-	@echo "make check: OK"
+	@for test in $(TESTS); do \
+		$(PYTHON) gpx2epp.py $$test.gpx      > $$test.test.epp && \
+		hexdump -C           $$test.test.epp > $$test.test.hex && \
+		diff -u              $$test.hex        $$test.test.hex && \
+		$(PYTHON) eppread.py $$test.test.epp > $$test.test.txt && \
+		diff -u              $$test.txt        $$test.test.txt && \
+		echo "$$test: OK" || echo "$$test: FAILED"; \
+	done
 
 testdata:
-	$(PYTHON) gpx2epp.py $(TESTDATA).gpx > $(TESTDATA).epp
-	$(PYTHON) eppread.py $(TESTDATA).epp > $(TESTDATA).txt
-	hexdump -C           $(TESTDATA).epp > $(TESTDATA).hex
-	$(PYTHON) gpx2epp.py $(CODEPAGE).gpx > $(CODEPAGE).epp
-	$(PYTHON) eppread.py $(CODEPAGE).epp > $(CODEPAGE).txt
-	hexdump -C           $(CODEPAGE).epp > $(CODEPAGE).hex
+	@for test in $(TESTS); do \
+		$(PYTHON) gpx2epp.py $$test.gpx > $$test.epp; \
+		$(PYTHON) eppread.py $$test.epp > $$test.txt; \
+		hexdump -C           $$test.epp > $$test.hex; \
+	done
