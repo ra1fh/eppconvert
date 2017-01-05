@@ -188,17 +188,17 @@ epp_file = Struct(
                                Padding(8),
                 "title"      / Padded(0x40,  CString()),
                 "description"/ Padded(0x100, CString()),
-                "type"       / epp_type32, # 0x148
-                "third"      / epp_third,  # 0x14C
-                "graphmin"   / Int32sl,    # 0x150
-                "graphmax"   / Int32sl,    # 0x154
-                "length"     / Int32ul,    # 0x158
-                "stepsize"   / Int32ul,    # 0x15C
-                "blr"        / epp_blr,    # 0x160
-                "startheight"/ Int32ul,    # 0x164
-                "maxwatt"    / Int16ul,    # 0x168
-                "maxpulse"   / Int16ul,    # 0x16A
-                "maxspeed"   / Float32l,   # 0x16C
+                "type"       / epp_type32,
+                "third"      / epp_third,
+                "graphmin"   / Int32sl,
+                "graphmax"   / Int32sl,
+                "length"     / Int32ul,
+                "stepsize"   / Int32ul,
+                "blr"        / epp_blr,
+                "startheight"/ Int32ul,
+                "maxwatt"    / Int16ul,
+                "maxpulse"   / Int16ul,
+                "maxspeed"   / Float32l,
                                Padding(8),
             ),
             "data" / Array(this.header.length, Struct(
