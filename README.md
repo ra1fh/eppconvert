@@ -21,7 +21,7 @@ python-construct.
 gpx2epp reads the gpx file and writes epp version 7 file to
 stdout. Example usage:
 
-	./gpx2epp.py track.gpx 200 > track.epp
+	./eppconvert/gpx2epp.py track.gpx 200 > track.epp
 
 The optional second parameter determines the stepsize in meters the
 epp file uses. The ergo bike can cope with arbitrary stepsizes, but
@@ -36,7 +36,7 @@ segments.
 eppread reads an epp file and prints a textual representation to
 stdout. Can be useful for debugging. Example usage:
 
-	./eppread.py track.epp 5
+	./eppconvert/eppread.py track.epp 5
 
 The optional second parameter limits the number of data points that
 are printed.
