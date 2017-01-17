@@ -26,7 +26,7 @@ import math
 import os
 import sys
 
-import eppformat as epp
+import eppconvert.eppformat as epp
 
 EARTH_RADIUS = 6378137.0
 

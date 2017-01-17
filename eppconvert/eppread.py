@@ -21,7 +21,7 @@ parse daum ergo bike epp/eup files
 from __future__ import print_function
 
 import sys
-import eppformat as epp
+import eppconvert.eppformat as epp
 
 def main():
     if (sys.version_info < (3,0)):

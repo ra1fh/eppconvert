@@ -8,9 +8,11 @@ check:
 	@status=0; \
 	for test in $(TESTS); do \
 		fail=0; \
+		PYTHONPATH=. \
 		$(PYTHON) $(GPX2EPP) $$test.gpx      > $$test.test.epp && \
 		hexdump -C           $$test.test.epp > $$test.test.hex && \
 		diff -u              $$test.hex        $$test.test.hex && \
+		PYTHONPATH=. \
 		$(PYTHON) $(EPPREAD) $$test.test.epp > $$test.test.txt && \
 		diff -u              $$test.txt        $$test.test.txt || \
 		fail=1; \
@@ -22,7 +24,9 @@ check:
 
 testdata:
 	@for test in $(TESTS); do \
+		PYTHONPATH=. \
 		$(PYTHON) $(GPX2EPP) $$test.gpx > $$test.epp; \
+        PYTHONPATH=. \
 		$(PYTHON) $(EPPREAD) $$test.epp > $$test.txt; \
 		hexdump -C           $$test.epp > $$test.hex; \
 	done

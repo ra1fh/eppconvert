@@ -8,20 +8,25 @@ python-construct.
 
 ## Requirements
 
-  * [python](https://www.python.org) 2.7, 3.5, or 3.6
+  * [python](https://www.python.org) (version 2.7, 3.2, 3.3, 3.4, 3.5, or 3.6)
 
-  * [python-construct](https://pypi.python.org/pypi/construct) 2.8
+  * [python-construct](https://pypi.python.org/pypi/construct) (version 2.8)
 
-    The distribution-provided version of python-construct will likely
-    be too old, so install the latest version with: `pip install
-    construct`
 
-## gpx2epp
+## Installation
+
+    sudo python ./setup.py install
+
+This will install `gpx2epp` and `eppread` in `/usr/bin` or similar.
+
+## Usage
+
+### gpx2epp
 
 gpx2epp reads the gpx file and writes epp version 7 file to
 stdout. Example usage:
 
-	./eppconvert/gpx2epp.py track.gpx 200 > track.epp
+	gpx2epp track.gpx 200 > track.epp
 
 The optional second parameter determines the stepsize in meters the
 epp file uses. The ergo bike can cope with arbitrary stepsizes, but
@@ -31,12 +36,12 @@ editor.
 Only the first track of the GPX is converted, including all track
 segments.
 
-## eppread
+### eppread
 
 eppread reads an epp file and prints a textual representation to
 stdout. Can be useful for debugging. Example usage:
 
-	./eppconvert/eppread.py track.epp 5
+	eppread track.epp 5
 
 The optional second parameter limits the number of data points that
 are printed.
