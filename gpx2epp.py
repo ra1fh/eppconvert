@@ -162,7 +162,7 @@ class EppBuilder:
         else:
             return y
 
-if __name__ == "__main__":
+def main():
     if (len(sys.argv) > 1):
         if (len(sys.argv) > 2):
             stepsize = int(sys.argv[2])
@@ -198,3 +198,6 @@ if __name__ == "__main__":
     else:
         print("usage: gpx2epp <file> [stepsize]")
         sys.exit(1);
+
+if __name__ == "__main__":
+    main()

@@ -23,7 +23,7 @@ from __future__ import print_function
 import sys
 import eppformat as epp
 
-if __name__ == "__main__":
+def main():
     if (sys.version_info < (3,0)):
         reload(sys)
         sys.setdefaultencoding('utf-8')
@@ -41,3 +41,6 @@ if __name__ == "__main__":
     else:
         print("usage: eppread <file> [limit]")
         sys.exit(1);
+
+if __name__ == "__main__":
+    main()
