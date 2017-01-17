@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 # Copyright (c) 2017 Ralf Horstmann <ralf@ackstorm.de>
 #
