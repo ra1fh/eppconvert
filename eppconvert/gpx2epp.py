@@ -21,6 +21,7 @@ convert gpx to epp dist/height profile
 from __future__ import print_function
 from xml.dom import minidom
 
+import argparse
 import functools
 import math
 import os
@@ -187,21 +188,33 @@ def gpx2epp(filename, document, stepsize):
 
 def main(argv=None):
     if (argv == None):
-        argv = sys.argv
+        argv = sys.argv[1:]
     try:
-        if (len(argv) < 2):
-            raise EppError("usage: gpx2epp <file> [stepsize]")
+        parser = argparse.ArgumentParser(prog='gpx2epp')
+        parser.add_argument('-i', '--input',  help="input file (default: stdin)")
+        parser.add_argument('-o', '--output', help="output file (default: stdout)")
+        parser.add_argument('-s', '--stepsize', type=int, help="stepsize between points (default: 200)")
+        args = parser.parse_args(args=argv)
 
-        filename = argv[1]
-        if (len(argv) > 2):
-            stepsize = int(argv[2])
+        if (args.stepsize):
+            stepsize = args.stepsize
         else:
             stepsize = 200
-        with open(filename, 'r') as f:
-            document = f.read()
-            output = gpx2epp(filename, document, stepsize)
-        with os.fdopen(sys.stdout.fileno(), 'wb') as f:
-            f.write(output)
+
+        if args.input:
+            with open(args.input, 'r') as f:
+                document = f.read()
+                output = gpx2epp(args.input, document, stepsize)
+        else:
+            document = sys.stdin.read()
+            output = gpx2epp('stdin', document, stepsize)
+
+        if args.output:
+            with open(args.output, 'wb') as f:
+                f.write(output)
+        else:
+            with os.fdopen(sys.stdout.fileno(), 'wb') as f:
+                f.write(output)
         return 0
 
     except EppError as error:

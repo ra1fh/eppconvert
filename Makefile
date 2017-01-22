@@ -9,12 +9,12 @@ check:
 	for test in $(TESTS); do \
 		fail=0; \
 		PYTHONPATH=. \
-		$(PYTHON) $(GPX2EPP) $$test.gpx      > $$test.test.epp && \
-		hexdump -C           $$test.test.epp > $$test.test.hex && \
-		diff -u              $$test.hex        $$test.test.hex && \
+		$(PYTHON) $(GPX2EPP) -i $$test.gpx      -o $$test.test.epp && \
+		hexdump -C              $$test.test.epp  > $$test.test.hex && \
+		diff -u                 $$test.hex         $$test.test.hex && \
 		PYTHONPATH=. \
-		$(PYTHON) $(EPPREAD) $$test.test.epp > $$test.test.txt && \
-		diff -u              $$test.txt        $$test.test.txt || \
+		$(PYTHON) $(EPPREAD) -i $$test.test.epp -o $$test.test.txt && \
+		diff -u                 $$test.txt         $$test.test.txt || \
 		fail=1; \
 		[ $$fail -eq 1 ] && echo "$$test: FAILED"; \
 		[ $$fail -eq 0 ] && echo "$$test: OK";     \
@@ -25,8 +25,8 @@ check:
 testdata:
 	@for test in $(TESTS); do \
 		PYTHONPATH=. \
-		$(PYTHON) $(GPX2EPP) $$test.gpx > $$test.epp; \
+		$(PYTHON) $(GPX2EPP) -i $$test.gpx -o $$test.epp; \
         PYTHONPATH=. \
-		$(PYTHON) $(EPPREAD) $$test.epp > $$test.txt; \
-		hexdump -C           $$test.epp > $$test.hex; \
+		$(PYTHON) $(EPPREAD) -i $$test.epp -o $$test.txt; \
+		hexdump -C              $$test.epp  > $$test.hex; \
 	done

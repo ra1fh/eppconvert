@@ -23,6 +23,7 @@ from __future__ import print_function
 import os
 import sys
 import string
+import argparse
 import eppconvert.eppformat as epp
 
 try:
@@ -37,26 +38,36 @@ def eppread(document, limit=None):
     output.write("version = {0}\n".format(doc.version))
     output.write(str(doc.header) + "\n")
     output.write("\n".join(map(str, doc.data[:limit])))
+    output.write("\n")
     return output.getvalue()
 
 def main(argv=None):
-    if (argv == None):
-        argv = sys.argv
     if (sys.version_info < (3,0)):
         reload(sys)
         sys.setdefaultencoding('utf-8')
-    if (len(argv) > 1):
-        if (len(argv) > 2):
-            limit=int(argv[2])
-        else:
-            limit=None
-        with open(argv[1], 'rb') as f:
-            text = eppread(f.read(), limit)
-            print(text)
-        return 0
-    else:
-        print("usage: eppread <file> [limit]")
-        return 1
 
+    if (argv == None):
+        argv = sys.argv
+        
+    parser = argparse.ArgumentParser(prog='gpx2epp')
+    parser.add_argument('-i', '--input',  help="input file (default: stdin)")
+    parser.add_argument('-o', '--output', help="output file (default: stdout)")
+    parser.add_argument('-l', '--limit',  help="limit number of data points to print", type=int)
+    args = parser.parse_args(args=argv[1:])
+
+    if args.input:
+        with open(args.input, 'rb') as f:
+            text = eppread(f.read(), args.limit)
+    else:
+        with sys.stdin as f:
+            text = eppread(f.read(), args.limit)
+
+    if args.output:
+        with open(args.output, 'wb') as outfile:
+            outfile.write(text.encode('utf-8'))
+    else:
+        sys.stdout.write(text.encode('utf-8'))
+    return 0
+    
 if __name__ == "__main__":
     sys.exit(main())
