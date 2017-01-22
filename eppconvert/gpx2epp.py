@@ -25,10 +25,14 @@ import functools
 import math
 import os
 import sys
+import string
 
 import eppconvert.eppformat as epp
 
 EARTH_RADIUS = 6378137.0
+
+class EppError(Exception):
+    pass
 
 class GpxPoint:
     def __init__(self, lat=None, lon=None, ele=None, dist=None, total=None):
@@ -42,7 +46,7 @@ class GpxReader:
     def __init__(self, filename):
         self.name = None
 
-        xml = minidom.parse(filename)
+        xml = minidom.parseString(filename)
         self.points = []
         for trk in xml.getElementsByTagName('trk')[0:1]:
             name = trk.getElementsByTagName('name')
@@ -52,31 +56,25 @@ class GpxReader:
             for trkpt in trkpts:
                 ele = trkpt.getElementsByTagName('ele')
                 if not ele or len(ele) < 1 or ele[0].firstChild == None:
-                    print('error: GPX track point has no elevation data (#',
-                          len(self.points), ')', file=sys.stderr, sep='')
-                    sys.exit(1)
-
+                    raise EppError('error: GPX track point has no elevation data ' +
+                                       '(#{0})'.format(len(self.points)))
                 try:
                     ele = float(ele[0].firstChild.nodeValue)
                 except ValueError:
-                    print('error: GPX track point contains invalid elevation data (#',
-                          len(self.points), '): ', ele[0].firstChild.nodeValue,
-                          file=sys.stderr, sep='')
-                    sys.exit(1)
+                    raise EppError('error: GPX track point contains invalid elevation data ' +
+                                       '(#{0}): {1}'.format(len(self.points), ele[0].firstChild.nodeValue))
 
                 try:
                     lat = float(trkpt.getAttribute('lat'))
                 except ValueError:
-                    print('error: GPX track point contains invalid latitude data (#',
-                          len(self.points), '): ', trkpt.getAttribute('lat'), file=sys.stderr, sep='')
-                    sys.exit(1)
+                    raise EppError('error: GPX track point contains invalid latitude data ' +
+                                       '(#{0}): {1}'.format(len(self.points), trkpt.getAttribute('lat')))
 
                 try:
                     lon = float(trkpt.getAttribute('lon'))
                 except ValueError:
-                    print('error: GPX track point contains invalid longitude data (#',
-                          len(self.points), '): ', trkpt.getAttribute('lon'), file=sys.stderr, sep='')
-                    sys.exit(1)
+                    raise EppError('error: GPX track point contains invalid longitude data ' +
+                                       '(#{0}): {1}', len(self.points), trkpt.getAttribute('lon'))
 
                 p = GpxPoint(lat, lon, ele, 0.0, 0.0)
                 self.points.append(p)
@@ -162,42 +160,57 @@ class EppBuilder:
         else:
             return y
 
-def main():
-    if (len(sys.argv) > 1):
-        if (len(sys.argv) > 2):
-            stepsize = int(sys.argv[2])
+def gpx2epp(filename, document, stepsize):
+    gpx = GpxReader(document)
+    points = gpx.points
+    if len(points) < 1:
+        raise EppError("error: no track points in GPX file.")
+
+    profile = ProfileGenerator(points, stepsize).profile
+    if len(profile) > 3000:
+        raise EppError("error: number of steps exceeds limit of 3000: {0}".format(len(profile)),
+                       "       Please try to use a higher stepsize than {0}".format(stepsize))
+    if len(profile) < 1:
+        raise EppError("error: no epp data points after conversion.")
+
+    if gpx.name:
+        title = gpx.name
+    else:
+        title = str(os.path.basename(filename))
+
+    descr = "file=" + str(os.path.basename(filename)) + \
+            ", stepsize=" + str(stepsize)
+    title = title[0:49]
+    descr = descr[0:255]
+    eppdata = EppBuilder(profile, stepsize, title, descr).eppdata
+    return eppdata
+
+def main(argv=None):
+    if (argv == None):
+        argv = sys.argv
+    try:
+        if (len(argv) < 2):
+            raise EppError("usage: gpx2epp <file> [stepsize]")
+
+        filename = argv[1]
+        if (len(argv) > 2):
+            stepsize = int(argv[2])
         else:
             stepsize = 200
-
-        gpx = GpxReader(sys.argv[1])
-        points = gpx.points
-        if len(points) < 1:
-            print("error: no track points in GPX file.", file=sys.stderr)
-            sys.exit(1)
-
-        profile = ProfileGenerator(points, stepsize).profile
-        if len(profile) > 3000:
-            print("error: number of steps exceeds limit of 3000:", len(profile), file=sys.stderr)
-            print("       Please try to use a higher stepsize than", stepsize, file=sys.stderr)
-            sys.exit(1)
-        if len(profile) < 1:
-            print("error: no epp data points after conversion.", file=sys.stderr)
-            sys.exit(1)
-
-        if gpx.name:
-            title = gpx.name
-        else:
-            title = str(os.path.basename(sys.argv[1]))
-        descr = "file=" + str(os.path.basename(sys.argv[1])) + \
-                ", stepsize=" + str(stepsize)
-        title = title[0:49]
-        descr = descr[0:255]
-        eppdata = EppBuilder(profile, stepsize, title, descr).eppdata
+        with open(filename, 'r') as f:
+            document = f.read()
+            output = gpx2epp(filename, document, stepsize)
         with os.fdopen(sys.stdout.fileno(), 'wb') as f:
-            f.write(eppdata)
-    else:
-        print("usage: gpx2epp <file> [stepsize]")
-        sys.exit(1);
+            f.write(output)
+        return 0
+
+    except EppError as error:
+        print(string.join(map(str, error.args), os.linesep), file=sys.stderr)
+
+    except IOError as error:
+        print("error: {0}".format(error[1], file=sys.stderr))
+
+    return 1
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
