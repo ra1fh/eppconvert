@@ -12,6 +12,7 @@ python:
 
 install:
   - pip install construct
+  - pip install hexdump
 
 script:
   - make check
