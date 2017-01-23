@@ -58,7 +58,7 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
 
-    packages=find_packages(),
+    packages=find_packages(exclude=['test']),
 
     install_requires=['construct>=2.8'],
 

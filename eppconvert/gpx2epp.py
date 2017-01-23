@@ -24,6 +24,7 @@ from xml.dom import minidom
 import argparse
 import functools
 import math
+import codecs
 import os
 import sys
 import string
@@ -202,7 +203,7 @@ def main(argv=None):
             stepsize = 200
 
         if args.input:
-            with open(args.input, 'r') as f:
+            with codecs.open(args.input, 'rb') as f:
                 document = f.read()
                 output = gpx2epp(args.input, document, stepsize)
         else:
@@ -210,7 +211,7 @@ def main(argv=None):
             output = gpx2epp('stdin', document, stepsize)
 
         if args.output:
-            with open(args.output, 'wb') as f:
+            with codecs.open(args.output, 'wb') as f:
                 f.write(output)
         else:
             with os.fdopen(sys.stdout.fileno(), 'wb') as f:

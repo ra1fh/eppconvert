@@ -10,7 +10,7 @@ check:
 		fail=0; \
 		PYTHONPATH=. \
 		$(PYTHON) $(GPX2EPP) -i $$test.gpx      -o $$test.test.epp && \
-		hexdump -C              $$test.test.epp  > $$test.test.hex && \
+		$(PYTHON) -m hexdump    $$test.test.epp  > $$test.test.hex && \
 		diff -u                 $$test.hex         $$test.test.hex && \
 		PYTHONPATH=. \
 		$(PYTHON) $(EPPREAD) -i $$test.test.epp -o $$test.test.txt && \
@@ -28,5 +28,6 @@ testdata:
 		$(PYTHON) $(GPX2EPP) -i $$test.gpx -o $$test.epp; \
         PYTHONPATH=. \
 		$(PYTHON) $(EPPREAD) -i $$test.epp -o $$test.txt; \
-		hexdump -C              $$test.epp  > $$test.hex; \
+		PYTHONPATH=. \
+		$(PYTHON) -m hexdump    $$test.epp  > $$test.hex; \
 	done
