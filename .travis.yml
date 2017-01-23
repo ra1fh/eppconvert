@@ -16,4 +16,4 @@ install:
   - pip install hexdump
 
 script:
-  - tox
+  - tox --develop
