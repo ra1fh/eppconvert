@@ -11,16 +11,22 @@ python-construct.
 Requirements
 ------------
 
-* .. _python: https://www.python.org (version 2.7, 3.3, 3.4, 3.5, or 3.6)
-* .. _python-construct: https://pypi.python.org/pypi/construct (version 2.8)
-* .. _docopt: https://pypi.python.org/pypi/docopt (version 0.6.2)
+* `python <https://www.python.org>`_ (version 2.7, 3.3, 3.4, 3.5, or 3.6)
+
+* `python-construct <https://pypi.python.org/pypi/construct>`_ (version 2.8)
+
+* `docopt <https://pypi.python.org/pypi/docopt>`_ (version 0.6.2)
+
 * Tested operating systems: Linux, OS X, OpenBSD
+
 
 Installation
 ------------
 
 ::
+
     sudo python ./setup.py install
+
 
 This will install `gpx2epp` and `eppread` including all dependencies
 into `/usr/local/bin` or similar.
@@ -34,6 +40,7 @@ gpx2epp
 Convert GPX to Daum EPP height profile. Writes a version 7 EPP file.
 
 ::
+
     Usage:
         gpx2epp [-i FILE] [-o FILE] [-s STEPSIZE]
 
@@ -44,11 +51,14 @@ Convert GPX to Daum EPP height profile. Writes a version 7 EPP file.
         -o, --output FILE        Output EPP file (default: stdout).
         -s, --stepsize STEPSIZE  Stepsize in meters.
 
+
 Here is an example that reads a GPX file and writes an EPP file to
 stdout with a stepsize of 200 meters between data points:
 
 ::
-	gpx2epp --input track.gpx --stepsize 200 > track.epp
+
+    gpx2epp --input track.gpx --stepsize 200 > track.epp
+
 
 Only the first track of the GPX file is converted, including all track
 segments. Please note that arbitrary stepsize values can be used and
@@ -62,6 +72,7 @@ Read and print Daum Ergo Bike EPP/EUP files. Prints textual representation
 to stdout. Can be useful for debugging.
 
 ::
+
     Usage:
         eppread [-i FILE] [-o FILE] [-l LIMIT]
 
@@ -76,5 +87,6 @@ Example usage that reads an EPP file and prints the header and 5 data
 points at most:
 
 ::
-	eppread --input track.epp --limit 5
+
+    eppread --input track.epp --limit 5
 
