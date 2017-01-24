@@ -58,6 +58,10 @@ def test_gpx2epp_stdout(testfile, capfd):
     assert(result == 0)
     b = io.open(basename + '.epp', 'rb').read()
     out, err = capfd.readouterr()
+    # Comparing binary strings captured from stdout
+    # is quite tricky to do in a way that works with both
+    # python 2 and 3. So do at least minimal test that works
+    # reliably
     assert(out.startswith('EW2_EUP'))
 
 def test_eppread(testfile):
@@ -84,7 +88,7 @@ def test_eppread_stdout(testfile, capfd):
     assert(out == b)
 
 if __name__ == "__main__":
-    ''' setup testcases data '''
+    ''' setup data for test cases '''
     print("Generating known good data for test cases.")
     for testfile in TESTCASES:
         basename = 'test' + os.sep + testfile
