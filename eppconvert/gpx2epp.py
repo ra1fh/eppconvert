@@ -232,6 +232,9 @@ def main(argv=None):
     except EppError as error:
         print(string.join(map(str, error.args), os.linesep), file=sys.stderr)
 
+    except KeyboardInterrupt:
+        print(" Interrupted.", file=sys.stderr)
+
     except IOError as error:
         print("error: {0}".format(error[1], file=sys.stderr))
 
