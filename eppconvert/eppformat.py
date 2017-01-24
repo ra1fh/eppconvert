@@ -14,7 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 """
-daum ergo bike epp/eup format definition
+Daum Ergo Bike EPP/EUP format definition
 """
 
 from construct import *

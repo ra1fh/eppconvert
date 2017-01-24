@@ -14,22 +14,34 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-"""
-convert gpx to epp dist/height profile
-"""
+'''Convert GPX to Daum EPP height profile.
 
-from __future__ import print_function
-from xml.dom import minidom
+Usage:
+    gpx2epp [-i FILE] [-o FILE] [-s STEPSIZE]
 
-import argparse
+Options:
+    -h, --help               Show this.
+        --version            Show version.
+    -i, --input FILE         Input GPX file (default: stdin).
+    -o, --output FILE        Output EPP file (default: stdout).
+    -s, --stepsize STEPSIZE  Stepsize in meters.
+
+'''
+
+from __future__ import absolute_import, print_function
+
+import docopt
 import functools
+import io
 import math
-import codecs
 import os
-import sys
 import string
+import sys
 
 import eppconvert.eppformat as epp
+from xml.dom import minidom
+
+from eppconvert.release import __version__
 
 EARTH_RADIUS = 6378137.0
 
@@ -191,31 +203,30 @@ def main(argv=None):
     if (argv == None):
         argv = sys.argv[1:]
     try:
-        parser = argparse.ArgumentParser(prog='gpx2epp')
-        parser.add_argument('-i', '--input',  help="input file (default: stdin)")
-        parser.add_argument('-o', '--output', help="output file (default: stdout)")
-        parser.add_argument('-s', '--stepsize', type=int, help="stepsize between points (default: 200)")
-        args = parser.parse_args(args=argv)
+        args = docopt.docopt(__doc__, argv=argv, version='gpx2epp ' + __version__)
 
-        if (args.stepsize):
-            stepsize = args.stepsize
+        if (args['--stepsize']):
+            stepsize = int(args['--stepsize'])
         else:
             stepsize = 200
 
-        if args.input:
-            with codecs.open(args.input, 'rb') as f:
+        if args['--input']:
+            with io.open(args['--input'], 'rb') as f:
                 document = f.read()
-                output = gpx2epp(args.input, document, stepsize)
+                output = gpx2epp(args['--input'], document, stepsize)
         else:
             document = sys.stdin.read()
             output = gpx2epp('stdin', document, stepsize)
 
-        if args.output:
-            with codecs.open(args.output, 'wb') as f:
+        if args['--output']:
+            with io.open(args['--output'], 'wb') as f:
                 f.write(output)
         else:
-            with os.fdopen(sys.stdout.fileno(), 'wb') as f:
-                f.write(output)
+            if hasattr(sys.stdout, 'buffer'):
+                sys.stdout.buffer.write(output)
+            else:
+                sys.stdout.write(output)
+
         return 0
 
     except EppError as error:

@@ -28,9 +28,12 @@ with io.open(path.join(here, 'README.md'), encoding='utf-8') as f:
         if not 'travis-ci.org' in line:
             long_description += line
 
+sys.path.insert(0, here + '/eppconvert')
+from eppconvert.release import __version__
+
 setup(
     name='eppconvert',
-    version='0.9.0',
+    version=__version__,
 
     description='Convert GPX to EPP',
     long_description=long_description,
@@ -61,12 +64,7 @@ setup(
 
     packages=find_packages(exclude=['test']),
 
-    install_requires=['construct>=2.8'],
-
-    # scripts=[
-    #     'eppconvert/gpx2epp.py',
-    #     'eppconvert/eppread.py'
-    # ],
+    install_requires=['construct>=2.8', 'docopt>=0.6.2'],
 
     entry_points={
         'console_scripts': [

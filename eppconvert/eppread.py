@@ -14,18 +14,27 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-"""
-parse daum ergo bike epp/eup files
-"""
+'''Read and print Daum Ergo Bike EPP/EUP files.
 
-from __future__ import print_function
+Usage:
+    eppread [-i FILE] [-o FILE] [-l LIMIT]
 
+Options:
+    -h, --help               Show this.
+        --version            Show version.
+    -i, --input FILE         Input EPP/EUP file (default: stdin).
+    -o, --output FILE        Output text file (default: stdout).
+    -l, --limit LIMIT        Limit of data points to print.
+
+'''
+import docopt
+import io
 import os
-import sys
-import codecs
 import string
-import argparse
 import eppconvert.eppformat as epp
+import sys
+
+from eppconvert.release import __version__
 
 try:
     from StringIO import StringIO
@@ -49,26 +58,36 @@ def main(argv=None):
 
     if (argv == None):
         argv = sys.argv[1:]
+
+    try:
+        args = docopt.docopt(__doc__, argv=argv, version='eppread ' + __version__)
         
-    parser = argparse.ArgumentParser(prog='gpx2epp')
-    parser.add_argument('-i', '--input',  help="input file (default: stdin)")
-    parser.add_argument('-o', '--output', help="output file (default: stdout)")
-    parser.add_argument('-l', '--limit',  help="limit number of data points to print", type=int)
-    args = parser.parse_args(args=argv)
+        limit = None
+        if args['--limit']:
+            limit = int(args['--limit'])
+        
+        if args['--input']:
+            with io.open(args['--input'], 'rb') as f:
+                text = eppread(f.read(), limit)
+        else:
+            with sys.stdin as f:
+                text = eppread(f.read(), limit)
+        
+        if args['--output']:
+            with io.open(args['--output'], 'wb') as outfile:
+                outfile.write(text.encode('utf-8'))
+        else:
+            sys.stdout.write(text)
 
-    if args.input:
-        with codecs.open(args.input, 'rb') as f:
-            text = eppread(f.read(), args.limit)
-    else:
-        with sys.stdin as f:
-            text = eppread(f.read(), args.limit)
+        return 0
 
-    if args.output:
-        with codecs.open(args.output, 'wb') as outfile:
-            outfile.write(text.encode('utf-8'))
-    else:
-        sys.stdout.write(text.encode('utf-8'))
-    return 0
+    except KeyboardInterrupt:
+        print(" Interrupted.", file=sys.stderr)
+
+    except IOError as error:
+        print("error: IOError {0}".format(error, file=sys.stderr))
+
+    return 1
     
 if __name__ == "__main__":
     sys.exit(main())
