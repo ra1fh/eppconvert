@@ -11,8 +11,6 @@ python:
 
 install:
   - pip install tox-travis
-  - pip install construct
-  - pip install hexdump
 
 script:
-  - tox --develop
+  - tox
