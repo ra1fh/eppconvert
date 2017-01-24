@@ -18,3 +18,11 @@ install:
 
 script:
   - tox
+
+matrix:
+  include:
+    - os: linux
+    - os: osx
+      sudo: required
+      python: 2.7
+      env: TOXENV=py27
