@@ -3,7 +3,7 @@
 # eppconvert
 
 Tools to parse and convert Daum Ergo Bike EPP files. This contains a
-mostly complete specification of the epp/eup file format, using
+mostly complete specification of the EPP/EUP file format, using
 python-construct.
 
 ## Requirements
@@ -24,7 +24,7 @@ into `/usr/local/bin` or similar.
 
 ### gpx2epp
 
-Convert GPX to Daum EPP height profile.
+Convert GPX to Daum EPP height profile. Writes a version 7 EPP file.
 
     Usage:
         gpx2epp [-i FILE] [-o FILE] [-s STEPSIZE]
@@ -36,22 +36,20 @@ Convert GPX to Daum EPP height profile.
         -o, --output FILE        Output EPP file (default: stdout).
         -s, --stepsize STEPSIZE  Stepsize in meters.
 
-gpx2epp reads the gpx file and writes an EPP version 7 height profile
-to stdout. Example usage:
+Here is an example that reads a GPX file and writes an EPP file to
+stdout with a stepsize of 200 meters between data points:
 
 	gpx2epp --input track.gpx --stepsize 200 > track.epp
 
-The optional stepsize parameter determines the stepsize in meters the
-epp file uses. The ergo bike can cope with arbitrary stepsizes, but
-only files with a stepsize of 200 can be modified in the bike UI
-editor.
-
 Only the first track of the GPX file is converted, including all track
-segments.
+segments. Please note that arbitrary stepsize values can be used and
+do usually work, but only files with a stepsize of 200 meters can be
+modified with the control console editor.
 
 ### eppread
 
-    Read and print Daum Ergo Bike EPP/EUP files.
+Read and print Daum Ergo Bike EPP/EUP files. Prints textual representation
+to stdout. Can be useful for debugging.
 
     Usage:
         eppread [-i FILE] [-o FILE] [-l LIMIT]
@@ -63,10 +61,8 @@ segments.
         -o, --output FILE        Output text file (default: stdout).
         -l, --limit LIMIT        Limit of data points to print.
 
-Eppread reads an epp file and prints a textual representation to
-stdout. Can be useful for debugging. Example usage:
+Example usage that reads an EPP file and prints the header and 5 data
+points at most:
 
 	eppread --input track.epp --limit 5
 
-The optional second parameter limits the number of data points that
-are printed.
