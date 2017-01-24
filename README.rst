@@ -17,7 +17,7 @@ Requirements
 
 * `docopt <https://pypi.python.org/pypi/docopt>`_ (version 0.6.2)
 
-* Tested operating systems: Linux, OS X, OpenBSD
+* Tested operating systems: Linux, OS X, OpenBSD, Windows
 
 
 Installation

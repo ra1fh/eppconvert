@@ -48,7 +48,7 @@ def test_gpx2epp(testfile):
     a = open(basename + '.test.hex', 'r').readlines()
     b = open(basename + '.hex', 'r').readlines()
     print(''.join(difflib.unified_diff(a,b, basename + '.test.hex', basename + '.hex')))
-    assert(filecmp.cmp(basename + '.hex', basename + '.test.hex'))
+    assert(filecmp.cmp(basename + '.epp', basename + '.test.epp'))
 
 def test_gpx2epp_stdout(testfile, capfd):
     ''' test conversion from epp to plain text on stdout'''
