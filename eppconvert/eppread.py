@@ -27,6 +27,9 @@ Options:
     -l, --limit LIMIT        Limit of data points to print.
 
 '''
+
+from __future__ import absolute_import, print_function
+
 import docopt
 import io
 import os
