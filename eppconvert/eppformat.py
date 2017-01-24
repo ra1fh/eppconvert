@@ -18,6 +18,7 @@ Daum Ergo Bike EPP/EUP format definition
 """
 
 from __future__ import absolute_import, print_function
+
 from construct import *
 
 class FloatAdapter(Adapter):
