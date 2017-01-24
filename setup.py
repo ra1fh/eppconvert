@@ -22,7 +22,7 @@ import codecs
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = ""
     for line in f:
         if not 'travis-ci.org' in line:
@@ -35,7 +35,7 @@ setup(
     name='eppconvert',
     version=__version__,
 
-    description='Convert GPX to EPP',
+    description='Parse and convert Daum Ergo Bike EPP files',
     long_description=long_description,
 
     url='https://github.com/ra1fh/eppconvert',
