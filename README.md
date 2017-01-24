@@ -25,10 +25,10 @@ into `/usr/local/bin` or similar.
 ### gpx2epp
 
 Convert GPX to Daum EPP height profile.
-    
+
     Usage:
         gpx2epp [-i FILE] [-o FILE] [-s STEPSIZE]
-    
+
     Options:
         -h, --help               Show this.
             --version            Show version.
@@ -52,10 +52,10 @@ segments.
 ### eppread
 
     Read and print Daum Ergo Bike EPP/EUP files.
-    
+
     Usage:
         eppread [-i FILE] [-o FILE] [-l LIMIT]
-    
+
     Options:
         -h, --help               Show this.
             --version            Show version.

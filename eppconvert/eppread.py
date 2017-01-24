@@ -64,18 +64,18 @@ def main(argv=None):
 
     try:
         args = docopt.docopt(__doc__, argv=argv, version='eppread ' + __version__)
-        
+
         limit = None
         if args['--limit']:
             limit = int(args['--limit'])
-        
+
         if args['--input']:
             with io.open(args['--input'], 'rb') as f:
                 text = eppread(f.read(), limit)
         else:
             with sys.stdin as f:
                 text = eppread(f.read(), limit)
-        
+
         if args['--output']:
             with io.open(args['--output'], 'wb') as outfile:
                 outfile.write(text.encode('utf-8'))
@@ -91,6 +91,6 @@ def main(argv=None):
         print("error: IOError {0}".format(error, file=sys.stderr))
 
     return 1
-    
+
 if __name__ == "__main__":
     sys.exit(main())
