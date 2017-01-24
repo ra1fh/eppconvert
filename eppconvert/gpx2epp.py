@@ -236,7 +236,7 @@ def main(argv=None):
         print(" Interrupted.", file=sys.stderr)
 
     except IOError as error:
-        print("error: {0}".format(error[1], file=sys.stderr))
+        print("error: {0}".format(error, file=sys.stderr))
 
     return 1
 
