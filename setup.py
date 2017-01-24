@@ -15,14 +15,14 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 import io
+import os
+import sys
+import codecs
 
 from setuptools import setup, find_packages
-from codecs import open
-from os import path
 
-here = path.abspath(path.dirname(__file__))
-
-with io.open(path.join(here, 'README.md'), encoding='utf-8') as f:
+here = os.path.abspath(os.path.dirname(__file__))
+with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = ""
     for line in f:
         if not 'travis-ci.org' in line:
@@ -47,6 +47,7 @@ setup(
 
     classifiers=[
         'Development Status :: 4 - Beta',
+        'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: End Users/Desktop',
         'Intended Audience :: Healthcare Industry',
