@@ -38,9 +38,9 @@ import os
 import string
 import sys
 
-import eppconvert.eppformat as epp
 from xml.dom import minidom
 
+from eppconvert import eppformat
 from eppconvert.release import __version__
 
 EARTH_RADIUS = 6378137.0
@@ -155,7 +155,7 @@ class EppBuilder:
         eppinfo = dict(version='VERSION_7',
                        header=header,
                        data=data)
-        self.eppdata = epp.epp_file.build(eppinfo)
+        self.eppdata = eppformat.epp_file.build(eppinfo)
 
     def graphmax(self, profile):
         m = functools.reduce(self.max, profile).ele

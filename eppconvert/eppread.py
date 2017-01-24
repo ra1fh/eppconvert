@@ -34,9 +34,9 @@ import docopt
 import io
 import os
 import string
-import eppconvert.eppformat as epp
 import sys
 
+from eppconvert import eppformat
 from eppconvert.release import __version__
 
 try:
@@ -46,7 +46,7 @@ except ImportError:
 
 def eppread(document, limit=None):
     output = StringIO()
-    doc = epp.epp_file.parse(document)
+    doc = eppformat.epp_file.parse(document)
     output.write("signature = {0}\n".format(doc.signature.decode('ascii')))
     output.write("version = {0}\n".format(doc.version))
     output.write(str(doc.header) + "\n")
