@@ -12,6 +12,7 @@ python-construct.
 
   * [python-construct](https://pypi.python.org/pypi/construct) (version 2.8)
 
+  * Tested operating systems: Linux, OS X, OpenBSD
 
 ## Installation
 
