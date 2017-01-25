@@ -23,13 +23,21 @@ Requirements
 Installation
 ------------
 
+The installation can be done with pip/pypi or from source.  In both
+cases the scripts `gpx2epp` and `eppread` will be made available as
+command line tools.
+
+To install with pip from pypi:
+
+::
+
+    sudo python -m pip install eppconvert
+
+Alternatively install from source:
+
 ::
 
     sudo python ./setup.py install
-
-
-This will install `gpx2epp` and `eppread` including all dependencies
-into `/usr/local/bin` or similar.
 
 Usage
 -----
@@ -69,7 +77,7 @@ eppread
 '''''''
 
 Read and print Daum Ergo Bike EPP/EUP files. Prints textual representation
-to stdout. Can be useful for debugging.
+to stdout.
 
 ::
 
