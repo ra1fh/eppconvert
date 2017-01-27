@@ -45,7 +45,7 @@ Usage
 gpx2epp
 '''''''
 
-Convert GPX to Daum EPP height profile. Writes a version 7 EPP file.
+Convert GPX to Daum EPP elevation profile. Writes a version 7 EPP file.
 
 ::
 
