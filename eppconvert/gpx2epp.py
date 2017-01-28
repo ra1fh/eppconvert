@@ -230,7 +230,7 @@ def main(argv=None):
         return 0
 
     except EppError as error:
-        print(string.join(map(str, error.args), os.linesep), file=sys.stderr)
+        print(os.linesep.join(map(str, error.args)), file=sys.stderr)
 
     except KeyboardInterrupt:
         print(" Interrupted.", file=sys.stderr)
