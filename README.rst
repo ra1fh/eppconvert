@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/ra1fh/eppconvert.svg?branch=master
-    :target: https://travis-ci.org/ra1fh/eppconvert
+.. image:: https://github.com/ra1fh/eppconvert/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/ra1fh/eppconvert/actions/workflows/ci.yml
 
 eppconvert
 ==========
