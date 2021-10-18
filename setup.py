@@ -65,7 +65,7 @@ setup(
 
     packages=find_packages(exclude=['test']),
 
-    install_requires=['construct==2.8.22', 'docopt>=0.6.2'],
+    install_requires=['construct==2.8.10', 'docopt==0.6.2'],
 
     entry_points={
         'console_scripts': [
