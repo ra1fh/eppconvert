@@ -57,7 +57,7 @@ Convert GPX to Daum EPP elevation profile. Writes a version 7 EPP file.
             --version            Show version.
         -i, --input FILE         Input GPX file (default: stdin).
         -o, --output FILE        Output EPP file (default: stdout).
-        -s, --stepsize STEPSIZE  Stepsize in meters.
+        -s, --stepsize STEPSIZE  Stepsize in meters (default: 200).
 
 
 Here is an example that reads a GPX file and writes an EPP file to

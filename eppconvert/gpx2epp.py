@@ -24,7 +24,7 @@ Options:
         --version            Show version.
     -i, --input FILE         Input GPX file (default: stdin).
     -o, --output FILE        Output EPP file (default: stdout).
-    -s, --stepsize STEPSIZE  Stepsize in meters.
+    -s, --stepsize STEPSIZE  Stepsize in meters (default: 200).
 
 '''
 
