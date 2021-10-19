@@ -13,7 +13,7 @@ Requirements
 
 * `python <https://www.python.org>`_ (version 3.8, 3.9)
 
-* `python-construct <https://pypi.python.org/pypi/construct>`_ (version 2.8)
+* `python-construct <https://pypi.python.org/pypi/construct>`_ (version 2.8.10)
 
 * `docopt <https://pypi.python.org/pypi/docopt>`_ (version 0.6.2)
 
@@ -27,17 +27,31 @@ The installation can be done with pip/pypi or from source.  In both
 cases the scripts `gpx2epp` and `eppread` will be made available as
 command line tools.
 
+Linux/MacOS/BSD
+'''''''''''''''
+
 To install with pip from pypi:
 
 ::
 
-    sudo python -m pip install eppconvert
+    python -m pip install eppconvert
 
 Alternatively install from source:
 
 ::
 
-    sudo python ./setup.py install
+    python ./setup.py install --user
+
+
+Afterwards, gpx2eep and eppread will be installed in ``~/.local/bin``,
+which you may want to add to your PATH environment variable.
+
+Windows
+'''''''
+
+- Install Python 3.9 from https://www.python.org. Enable checkbox "Add Python to PATH" in the installer.
+- In CMD shell (Windows key + R, cmd <RETURN>), run: ``python -m pip install eppconvert``
+- Afterwards, gpx2epp and eppread are available in CMD shell
 
 Usage
 -----
@@ -65,13 +79,18 @@ stdout with a stepsize of 200 meters between data points:
 
 ::
 
-    gpx2epp --input track.gpx --stepsize 200 > track.epp
+    gpx2epp --input track.gpx --stepsize 200 --output track.epp
 
 
 Only the first track of the GPX file is converted, including all track
 segments. Please note that arbitrary stepsize values can be used and
 do usually work, but only files with a stepsize of 200 meters can be
 modified with the control console editor.
+
+To use the EPP file with the Daum bike, copy the EPP file to the Daum
+SD card, directory ``/DAUM/PROGRAM``. The track can be selected via
+"Menü -> Trainieren -> Standard-Programme -> Höhenprofil -> eigene
+Programme"
 
 eppread
 '''''''
