@@ -11,7 +11,7 @@ python-construct.
 Requirements
 ------------
 
-* `python <https://www.python.org>`_ (version 3.8, 3.9)
+* `python <https://www.python.org>`_ (version 3.6, 3.7, 3.8, 3.9)
 
 * `python-construct <https://pypi.python.org/pypi/construct>`_ (version 2.8.10)
 
